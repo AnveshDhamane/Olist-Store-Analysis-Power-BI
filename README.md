@@ -32,7 +32,7 @@ The dashboard features a navigation menu in the **bottom-left corner** with four
     * *Payment Value by Payment Type* (Donut Chart) - Highlights the dominance of Credit Cards.
     * *Price by Category* (Bar Chart) - Shows top revenue-generating categories like 'Bed Bath & Table'.
     * *Payment Value by State* - Visualizes revenue concentration in São Paulo (SP).
-![Payment Report Screenshot](https://github.com/user-attachments/assets/your-payment-report-image-link-here)
+![Payment Report Screenshot](https://github.com/AnveshDhamane/Olist-Store-Analysis-Power-BI/blob/1323aaa70acb219ca94e0e89e1dd49e531c6ac99/Payment%20vs%20Price%20Report%20Screenshot.png)
 
 ### 2. Avg Shipping Days Report
 **Focus:** Logistics efficiency and Customer Satisfaction.
@@ -40,7 +40,7 @@ The dashboard features a navigation menu in the **bottom-left corner** with four
 * **Key Visuals:**
     * *Avg Shipping Days by Review Score:* Demonstrates the correlation between faster shipping and higher ratings (5-star reviews typically have the shortest delivery times).
     * *Shipping Days by State:* Identifies regions with logistical challenges (e.g., North/Northeast states).
-![Avg Days Report Screenshot](https://github.com/user-attachments/assets/your-avg-days-image-link-here)
+![Avg Days Report Screenshot](https://github.com/AnveshDhamane/Olist-Store-Analysis-Power-BI/blob/1323aaa70acb219ca94e0e89e1dd49e531c6ac99/Avg%20Shipping%20Days%20Report%20screenshot.png)
 
 ### 3. No. of Orders (Review Score 5)
 **Focus:** Drivers of Customer Loyalty & Satisfaction.
@@ -49,7 +49,7 @@ The dashboard features a navigation menu in the **bottom-left corner** with four
     * *Monthly Trend of 5-Star Orders:* Tracks the volume of highly satisfied customers over time.
     * *Top Categories for 5-Star Reviews:* Shows which products (e.g., Health & Beauty) consistently delight customers.
     * *Geographic Heatmap:* Maps where the happiest customers are located.
-![Review Score 5 Screenshot](https://github.com/user-attachments/assets/your-review5-image-link-here)
+![Review Score 5 Screenshot](https://github.com/AnveshDhamane/Olist-Store-Analysis-Power-BI/blob/1323aaa70acb219ca94e0e89e1dd49e531c6ac99/No.%20of%20Orders%20(Review%20Score%205)%20screenshot.png)
 
 ### 4. Geographical Analysis
 **Focus:** Regional Market Penetration & Strategy.
@@ -58,7 +58,7 @@ The dashboard features a navigation menu in the **bottom-left corner** with four
     * *Total Payment by State (Map):* A geospatial view showing revenue density.
     * *State-wise Performance:* Detailed breakdown of order volumes per state (SP, RJ, MG, etc.).
     * *City-level Granularity:* Analysis of top performing cities within the major states.
-![Geographical Analysis Screenshot](https://github.com/user-attachments/assets/your-geo-analysis-image-link-here)
+![Geographical Analysis Screenshot](https://github.com/AnveshDhamane/Olist-Store-Analysis-Power-BI/blob/1323aaa70acb219ca94e0e89e1dd49e531c6ac99/Geographical%20Analysis%20screenshot.png)
 
 ---
 
