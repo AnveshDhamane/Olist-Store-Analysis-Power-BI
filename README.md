@@ -13,21 +13,54 @@ The project demonstrates skills in:
 - Data Visualization (Interactive charts & maps)
 - UI/UX Design (Navigation & Bookmarks)
 
-## Dashboard Navigation & Views
+## Dashboard Preview
 
-The dashboard is structured into multiple pages with a central navigation bar, allowing users to seamlessly switch between different analytical perspectives.
+### Home Page
+The landing page provides a high-level summary of the entire business, showing Total Revenue, Total Orders, and the overall Delivery Status.
+![Home Page Screenshot](image.png)
 
-### 1. Home / Overview Page
-Provides a high-level summary of the business, including Total Revenue, Order Volume, and Delivery Performance.
-![Home View Screenshot](image.png)
+---
 
-### 2. Sales & Product View
-Focuses on product performance, analyzing top-selling categories, seasonality trends, and revenue growth.
-![Sales View Screenshot](https://github.com/user-attachments/assets/your-sales-image-link-here)
+## Navigation & Analysis Views
 
-### 3. Logistics & Delivery View
-Analyzes shipping efficiency, comparing estimated vs. actual delivery times and freight costs across different regions.
-![Logistics View Screenshot](https://github.com/user-attachments/assets/your-logistics-image-link-here)
+The dashboard features a navigation menu in the **bottom-left corner** with four distinct buttons, allowing users to drill down into specific analytical areas.
+
+### 1. Payment vs Price Report
+**Focus:** Financial reconciliation and revenue breakdown.
+**Description:** This report compares the **Total Payment Value** (Gross Revenue including freight) against the **Total Product Price** (Net Sales). It identifies which payment methods are most popular and which states contribute the most to revenue.
+* **Key Visuals:**
+    * *Payment Value by Payment Type* (Donut Chart) - Highlights the dominance of Credit Cards.
+    * *Price by Category* (Bar Chart) - Shows top revenue-generating categories like 'Bed Bath & Table'.
+    * *Payment Value by State* - Visualizes revenue concentration in São Paulo (SP).
+![Payment Report Screenshot](https://github.com/user-attachments/assets/your-payment-report-image-link-here)
+
+### 2. Avg Shipping Days Report
+**Focus:** Logistics efficiency and Customer Satisfaction.
+**Description:** This detailed logistics report analyzes the time taken for deliveries and its direct correlation with customer review scores. It includes category-level filtering (e.g., **Pet Shop**) to identify specific product lines facing shipping bottlenecks.
+* **Key Visuals:**
+    * *Avg Shipping Days by Review Score:* Demonstrates the correlation between faster shipping and higher ratings (5-star reviews typically have the shortest delivery times).
+    * *Shipping Days by State:* Identifies regions with logistical challenges (e.g., North/Northeast states).
+![Avg Days Report Screenshot](https://github.com/user-attachments/assets/your-avg-days-image-link-here)
+
+### 3. No. of Orders (Review Score 5)
+**Focus:** Drivers of Customer Loyalty & Satisfaction.
+**Description:** This view filters the dataset to analyze exclusively **5-star rated orders**. By isolating the "perfect" transactions, we can understand the characteristics of successful sales—such as optimal delivery times, popular product categories, and top-performing regions.
+* **Key Visuals:**
+    * *Monthly Trend of 5-Star Orders:* Tracks the volume of highly satisfied customers over time.
+    * *Top Categories for 5-Star Reviews:* Shows which products (e.g., Health & Beauty) consistently delight customers.
+    * *Geographic Heatmap:* Maps where the happiest customers are located.
+![Review Score 5 Screenshot](https://github.com/user-attachments/assets/your-review5-image-link-here)
+
+### 4. Geographical Analysis
+**Focus:** Regional Market Penetration & Strategy.
+**Description:** This page visualizes the spatial distribution of customers and sales across Brazil. It is essential for identifying the "powerhouse" states (like São Paulo and Rio de Janeiro) and spotting under-served regions for potential marketing expansion.
+* **Key Visuals:**
+    * *Total Payment by State (Map):* A geospatial view showing revenue density.
+    * *State-wise Performance:* Detailed breakdown of order volumes per state (SP, RJ, MG, etc.).
+    * *City-level Granularity:* Analysis of top performing cities within the major states.
+![Geographical Analysis Screenshot](https://github.com/user-attachments/assets/your-geo-analysis-image-link-here)
+
+---
 
 ## Data Modeling
 
@@ -89,6 +122,99 @@ The dataset consists of 9 relational CSV files provided by Olist. It covers the 
 | olist_geolocation_dataset | Latitude and Longitude coordinates for mapping customers and sellers. |
 | product_category_translation | Translations of category names from Portuguese to English. |
 
+## DAX Measures & Calculations
+
+This project uses advanced DAX (Data Analysis Expressions) to create dynamic measures and field parameters. Below is the documentation for the core calculations used in the dashboard.
+
+### 1. Key Performance Indicators (KPIs)
+
+These measures calculate the core business metrics shown on the top-level cards.
+
+**Total Payment (Gross Revenue)**
+* **Code:**
+    ```dax
+         Total payment = CALCULATE(SUM(olist_order_payments_dataset[payment_value]))
+    ```
+* **What it tells:** The total monetary value captured by the platform (includes product price + freight).
+* **Used in:** Home Page KPI Cards.
+
+**Total Product Price (Net Sales)**
+* **Code:**
+    ```dax
+        Total price = CALCULATE(SUM(olist_order_items_dataset[price]))
+    ```
+* **What it tells:** The total revenue generated strictly from product sales (excluding freight).
+* **Used in:** Financial analysis views to separate logistics revenue from product revenue.
+
+**Average Payment**
+* **Code:**
+    ```dax
+         AVERAGE PAYMENT = CALCULATE(AVERAGE(olist_order_payments_dataset[payment_value]))
+    ```
+* **What it tells:** The average transaction value per order. High values indicate customers buying expensive items or multiple items at once.
+
+**Average Price**
+* **Code:**
+    ```dax
+          AVERAGE PRICE = CALCULATE(AVERAGE(olist_order_items_dataset[price]))
+    ```
+* **What it tells:** The average cost of a single item sold on the platform.
+
+### 2. Advanced Analysis Measures
+
+**Shipping Efficiency vs. Satisfaction**
+* **Code:**
+    ```dax
+    Avg shipping days by score =
+    ROUNDUP(
+        AVERAGEX(
+            VALUES(olist_order_reviews_dataset[review_score]),
+            CALCULATE(AVERAGE(olist_orders_dataset[Days taken]))
+        ),
+        0
+    )
+    ```
+* **What it tells:** Calculates the average number of delivery days for each review score (1-5 stars).
+* **Insight:** This measure is crucial for proving the correlation that **faster shipping leads to higher review scores**.
+* **Used in:** "Logistics" view, likely in a Bar Chart comparing Delivery Days by Review Score.
+
+### 3. Dynamic Field Parameters
+
+These tables allow the dashboard user to toggle between different metrics on a single chart using a slicer.
+
+**Metric Switcher (Totals)**
+* **Code:**
+    ```dax
+    Parameter = {
+        ("Total payment", NAMEOF('olist_customers_dataset'[Total payment]), 0),
+        ("Total price", NAMEOF('olist_customers_dataset'[Total price]), 1)
+    }
+    ```
+* **Usage:** Used in trend charts (e.g., "Revenue by Month") to allow users to switch between viewing **Total Revenue** vs. **Product Sales**.
+
+**Metric Switcher (Averages)**
+* **Code:**
+    ```dax
+    AVG parameter = {
+        ("AVERAGE PAYMENT", NAMEOF('Parameter'[AVERAGE PAYMENT]), 0),
+        ("AVERAGE PRICE", NAMEOF('Parameter'[AVERAGE PRICE]), 1)
+    }
+    ```
+* **Usage:** Used in charts analyzing ticket size to compare **Order Value** vs. **Item Price**.
+
+**Comprehensive Metric Selector**
+* **Code:**
+    ```dax
+    Parameter 3 = {
+        ("Total Payment", NAMEOF('olist_customers_dataset'[Total payment]), 0),
+        ("Average Payment", NAMEOF('Parameter'[AVERAGE PAYMENT]), 1),
+        ("Total Price", NAMEOF('olist_customers_dataset'[Total price]), 2),
+        ("Average Price", NAMEOF('Parameter'[AVERAGE PRICE]), 3)
+    }
+    ```
+* **Usage:** Used in the "Grid" or "Deep Dive" views where the user needs full control to swap any metric into the X or Y axis of a chart. *
+
+
 ## Key Insights
 
 ### 1. Geographic Concentration
@@ -114,5 +240,4 @@ Sellers should use the seasonality data to stock up heavily on "Bed & Bath" and 
 ### 3. Payment Incentives
 Since Credit Card installments are popular, offer interest-free installment promotions to increase the Average Order Value (AOV).
 
----
-This project was created for educational purposes to demonstrate data analysis capabilities in Power BI.
+
