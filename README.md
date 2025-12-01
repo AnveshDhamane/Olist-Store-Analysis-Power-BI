@@ -69,7 +69,7 @@ The data model follows a **Star Schema** architecture to optimize performance an
 - **Fact Table:** `Order_Items` (Contains transactional data like Price, Freight, and Quantity).
 - **Dimension Tables:** `Customers`, `Products`, `Sellers`, `Payments`, `Reviews`, and `Date` (Calendar).
 
-![Data Model Screenshot](https://github.com/user-attachments/assets/your-datamodel-image-link-here)
+![Data Model Screenshot](https://github.com/AnveshDhamane/Olist-Store-Analysis-Power-BI/blob/4d479c629ca1d5d62763e3f02b0d883abe1db3b2/Data%20Model.png)
 
 ### Model Details:
 - **Relationships:** One-to-Many relationships are established between Dimension tables and the Fact table.
