@@ -11,11 +11,38 @@ The project demonstrates skills in:
 - Power Query (ETL & Data Cleaning)
 - DAX (Complex measures & calculated columns)
 - Data Visualization (Interactive charts & maps)
-- Storytelling (Actionable insights)
+- UI/UX Design (Navigation & Bookmarks)
 
-## Dashboard Preview
+## Dashboard Navigation & Views
 
-![Dashboard Screenshot](https://github.com/user-attachments/assets/your-image-link-here)
+The dashboard is structured into multiple pages with a central navigation bar, allowing users to seamlessly switch between different analytical perspectives.
+
+### 1. Home / Overview Page
+Provides a high-level summary of the business, including Total Revenue, Order Volume, and Delivery Performance.
+![Home View Screenshot](image.png)
+
+### 2. Sales & Product View
+Focuses on product performance, analyzing top-selling categories, seasonality trends, and revenue growth.
+![Sales View Screenshot](https://github.com/user-attachments/assets/your-sales-image-link-here)
+
+### 3. Logistics & Delivery View
+Analyzes shipping efficiency, comparing estimated vs. actual delivery times and freight costs across different regions.
+![Logistics View Screenshot](https://github.com/user-attachments/assets/your-logistics-image-link-here)
+
+## Data Modeling
+
+The data model follows a **Star Schema** architecture to optimize performance and simplify DAX calculations.
+
+- **Fact Table:** `Order_Items` (Contains transactional data like Price, Freight, and Quantity).
+- **Dimension Tables:** `Customers`, `Products`, `Sellers`, `Payments`, `Reviews`, and `Date` (Calendar).
+
+![Data Model Screenshot](https://github.com/user-attachments/assets/your-datamodel-image-link-here)
+
+### Model Details:
+- **Relationships:** One-to-Many relationships are established between Dimension tables and the Fact table.
+- **Star Schema:** The `Order_Items` table acts as the central fact table, connected to `Products`, `Sellers`, and `Orders`.
+- **Snowflake Schema:** Used for the `Product_Category_Translation` table, which filters the `Products` table to provide English category names.
+- **Date Table:** A dedicated Date table was created using DAX to handle time-intelligence functions accurately.
 
 ## Features
 
@@ -28,15 +55,14 @@ The project demonstrates skills in:
 
 ### 2. Visual Insights
 - Sales Trends: Monthly and yearly revenue tracking (identifying Seasonality/Black Friday).
-- Geographic Distribution: Heatmap of sales by State and City (using Geolocation data).
+- Geographic Distribution: Heatmap of sales by State and City.
 - Category Performance: Top 10 product categories by revenue and volume.
 - Payment Analysis: Breakdown of payment methods (Credit Card, Boleto, Voucher).
-- Logistics Performance: Comparison of Estimated vs. Actual Delivery dates.
 
 ### 3. Interactive Filters
+- Navigation Buttons: Switch between "Sales," "Logistics," and "Customer" views.
 - Date Slicer: Filter by Year, Quarter, and Month.
 - Region Filter: Drill down by State (UF) or City.
-- Product Category: Filter specific market segments (e.g., Health & Beauty, Tech).
 
 ## Tools Used
 
@@ -48,8 +74,6 @@ The project demonstrates skills in:
 ## Dataset Description
 
 The dataset consists of 9 relational CSV files provided by Olist. It covers the entire order journey: from purchase to payment, shipping, and customer review.
-
-Below is the data dictionary explaining the source files used in the Data Model.
 
 ## Data Dictionary
 
@@ -79,16 +103,10 @@ While most orders arrive on time, there is a visible gap between Estimated Deliv
 ### 4. Payment Preferences
 Credit Cards are the dominant payment method, with a high usage of installments (Parcelado), suggesting customers prefer spreading costs for higher-value items.
 
-### 5. Product Category Leaders
-Categories like "Bed, Bath & Table" and "Health & Beauty" consistently lead in volume, while "Tech/Electronics" have higher average ticket sizes.
-
-### 6. Freight Impact
-High freight costs relative to product price (especially for cheaper items) negatively correlate with conversion rates and customer satisfaction.
-
 ## Recommendations
 
 ### 1. Logistics Optimization
-Establish warehousing partnerships in the North/Northeast regions to reduce delivery times and freight costs, thereby improving customer satisfaction outside of Sao Paulo.
+Establish warehousing partnerships in the North/Northeast regions to reduce delivery times and freight costs.
 
 ### 2. Inventory Planning
 Sellers should use the seasonality data to stock up heavily on "Bed & Bath" and "Decor" items specifically for the Q4 Black Friday rush.
@@ -96,9 +114,5 @@ Sellers should use the seasonality data to stock up heavily on "Bed & Bath" and 
 ### 3. Payment Incentives
 Since Credit Card installments are popular, offer interest-free installment promotions to increase the Average Order Value (AOV).
 
-### 4. Seller Quality Control
-Identify sellers with consistently late shipping or poor reviews and provide training or penalties to maintain platform reputation.
-
-### 5. Marketing Focus
-Target marketing campaigns in under-penetrated states (like Rio de Janeiro or Minas Gerais) where logistics are stable but order volume is below potential.
-
+---
+This project was created for educational purposes to demonstrate data analysis capabilities in Power BI.
