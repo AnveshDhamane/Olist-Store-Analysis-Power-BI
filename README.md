@@ -17,7 +17,7 @@ The project demonstrates skills in:
 
 ### Home Page
 The landing page provides a high-level summary of the entire business, showing Total Revenue, Total Orders, and the overall Delivery Status.
-![Home Page Screenshot](image.png)
+![Home Page Screenshot](https://github.com/AnveshDhamane/Olist-Store-Analysis-Power-BI/blob/eba3ca089a2471e6618c7dd7f8968f04a354592d/Screenshots/image.png)
 
 ---
 
